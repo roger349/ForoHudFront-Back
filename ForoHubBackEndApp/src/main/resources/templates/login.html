@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+</head>
+<body>
+<h2>Registrar Usuario</h2>
+<form action="/registrarUsuario" method="post">
+    <label for="nombreUsuarioDto">Nombre de usuario:</label>
+    <input type="text" id="nombreUsuarioDto" name="nombreUsuarioDto" value="${usuarioDTO.nombreUsuarioDto}" required>
+    <br>
+
+    <label for="correoElectronicoDto">Correo Electrónico:</label>
+    <input type="email" id="correoElectronicoDto" name="correoElectronicoDto" value="${usuarioDTO.correoElectronicoDto}" required>
+    <br>
+
+    <label for="contraseñaDto">Contraseña:</label>
+    <input type="password" id="contraseñaDto" name="contraseñaDto" required>
+    <br>
+
+    <label for="rolDto">Rol:</label>
+    <select id="rolDto" name="rolDto">
+        <option value="USER" ${usuarioDTO.rolDto == 'USER' ? 'selected' : ''}>Usuario</option>
+        <option value="ADMIN" ${usuarioDTO.rolDto == 'ADMIN' ? 'selected' : ''}>Administrador</option>
+    </select>
+    <br>
+
+    <button type="submit">Registrar</button>
+</form>
+
+<div>
+    <p th:if="${error}" th:text="${error}"></p>
+</div>
+</body>
+</html>

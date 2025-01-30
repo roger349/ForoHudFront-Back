@@ -1,0 +1,26 @@
+body {
+    background-image:url(../static/img/fondoAluramarron.png);
+    background-size:cover;
+}
+.eliminarUsuario {
+    background: burlywood;
+    margin-top: 180px;
+    margin-left:520px;
+    text-align: center;
+    width: 380px;
+    color:whitesmoke;
+    padding-top:25px;
+    padding-bottom: 15px;
+}
+input {
+    background: burlywood;
+    width: 310px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom:3%;
+    border-radius: 2%;
+}
+label {
+    margin-bottom:3%;
+    color:#6b4516
+}

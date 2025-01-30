@@ -40,7 +40,7 @@ public class LoginController {
     @GetMapping("/registrarUsuario")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("usuarioDTO", new UsuarioDTO());
-        return "auth/registrar";  // Vista para registrar un usuario (registrar.html)
+        return "auth/registrar";  // Vista para registrar un usuario (registrarUsuario.html)
     }
     // Manejar registro de usuario
     @PostMapping("/registrarUsuario")

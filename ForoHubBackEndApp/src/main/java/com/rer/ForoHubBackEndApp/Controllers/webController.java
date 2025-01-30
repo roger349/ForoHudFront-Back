@@ -144,9 +144,9 @@ public class webController {
     }
     @PreAuthorize("hasAuthority('CREAR_TOPICO')")
     @GetMapping("/topicos/crearTopico")
-    public String mostrarFormularioCrearTopico(Model model) {
+    public String mostrarcrearTopico(Model model) {
         model.addAttribute("topico", new TopicoDto());
-        return "topicos/crear";  // Vista para crear un tópico
+        return "topicos/crearTopico";  // Vista para crear un tópico
     }
     @PreAuthorize("hasAuthority('CREAR_TOPICO')")
     @PostMapping("/topicos/crearTopico")

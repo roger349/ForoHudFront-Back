@@ -1,6 +1,6 @@
 package com.rer.ForoHubBackEndApp.Security;
 
-import com.rer.ForoHubBackEnd.Services.UserDetailsServiceUsuario;
+import com.rer.ForoHubBackEndApp.Services.UserDetailsServiceUsuario;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,8 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-
 public class SecurityConfiguration {
 
     @Autowired
@@ -34,15 +31,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.requireCsrfProtectionMatcher(request -> false))
                 .sessionManagement(se -> se.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/login", "/registrarUsuario","/index").permitAll()
-                        .requestMatchers( "/v3/api-docs/**","/v3/api-docs", "/swagger-ui/**","/swagger-ui/index.html").permitAll()
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/login", "/registrarUsuario", "/index").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs", "/swagger-ui/**", "/swagger-ui/index.html").permitAll()
                         .anyRequest().authenticated())
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException)
-                        -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
-                .accessDeniedHandler((request, response, accessDeniedException)
-                        -> response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden"));
+                        .formLogin().loginPage("/login.html")
+                        .defaultSuccessUrl("/index.html", true)
+                        .permitAll().and().logout().permitAll();;
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -55,7 +50,8 @@ public class SecurityConfiguration {
    }
    /*@Bean
    public void Configuration(HttpSecurity http) throws Exception {
-        http.csrf().disable().formLogin().loginPage("/login.html")
+        http.csrf().disable()
+                .formLogin().loginPage("/login.html")
                 .defaultSuccessUrl("/home.html", true)
                 .permitAll().and().logout().permitAll();
     }*/

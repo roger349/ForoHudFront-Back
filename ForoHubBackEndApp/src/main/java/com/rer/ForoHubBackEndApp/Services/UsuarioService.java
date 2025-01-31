@@ -52,7 +52,6 @@ public class UsuarioService {
             return new ResponseEntity<>(new Mensaje("Error al registrar usuario"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     public Usuario saveUsuario(Usuario usuario) {return usuarioRepo.save(usuario);}
     public List<Usuario> getAllUsuarios() {return usuarioRepo.findAll();}
     public Optional<Usuario> getUsuarioById(java.lang.Long id) {return usuarioRepo.findById(id);}

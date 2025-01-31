@@ -1,6 +1,6 @@
 package com.rer.ForoHubBackEndApp.Security;
 
-import com.rer.ForoHubBackEnd.Services.UserDetailsServiceUsuario;
+import com.rer.ForoHubBackEndApp.Services.UserDetailsServiceUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;

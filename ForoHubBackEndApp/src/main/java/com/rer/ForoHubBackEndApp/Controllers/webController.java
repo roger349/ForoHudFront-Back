@@ -1,6 +1,5 @@
 package com.rer.ForoHubBackEndApp.Controllers;
 
-import com.rer.ForoHubBackEndApp.Models.Dto.TopicoDto;
 import com.rer.ForoHubBackEndApp.Models.Model.Topico;
 import com.rer.ForoHubBackEndApp.Models.Model.Usuario;
 import com.rer.ForoHubBackEndApp.Repository.RespuestasRepository;
@@ -22,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-
 
 @Controller
 @RequestMapping("/")
@@ -145,20 +143,20 @@ public class webController {
     @PreAuthorize("hasAuthority('CREAR_TOPICO')")
     @GetMapping("/topicos/crearTopico")
     public String mostrarcrearTopico(Model model) {
-        model.addAttribute("topico", new TopicoDto());
+        model.addAttribute("topico", new Topico());
         return "topicos/crearTopico";  // Vista para crear un tópico
     }
     @PreAuthorize("hasAuthority('CREAR_TOPICO')")
     @PostMapping("/topicos/crearTopico")
-    public String crearTopico(@Valid TopicoDto topicoDto, BindingResult result, Model model) {
+    public String crearTopico(@Valid Topico topico, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("topico", topicoDto);
+            model.addAttribute("topico", topico);
             return "topicos/crear";  // Si hay errores, mostrar el formulario de nuevo
         }
         try {
             Topico nuevoTopico = new Topico();
-            nuevoTopico.setTitulo(topicoDto.titulo());
-            nuevoTopico.setMensaje(topicoDto.mensaje());
+            nuevoTopico.setTitulo(topico.getTitulo());
+            nuevoTopico.setMensaje(topico.getMensaje());
             // Aquí iría el código adicional de creación y asignación de autor
             topicoServ.guardarTopico(nuevoTopico);
             return "redirect:/topicos/listarTopicos";  // Redirigir después de crear el tópico

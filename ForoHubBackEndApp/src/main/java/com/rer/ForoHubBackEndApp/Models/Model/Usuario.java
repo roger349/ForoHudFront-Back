@@ -18,13 +18,13 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotBlank(message = "El nombre de usuario no debe estar vacío")
+    @Column(name = "nombre_usuario")
+    private String nombre_usuario;
     @NotBlank(message = "La contraseña no debe estar vacío")
     @Size(min = 6, message = "La contraseña debe tener 6 o mas caracteres")
     @Column(name = "contraseña")
     private String contraseña;
-    @NotBlank(message = "El nombre de usuario no debe estar vacío")
-    @Column(name = "nombre_usuario")
-    private String nombre_usuario;
     @NotBlank(message = "El correo electronico no debe estar vacío")
     @Email(message = "El correo electronico debe ser válido")
     @Column(name = "correo_electronico")
@@ -40,19 +40,19 @@ public class Usuario {
 
     public Usuario() { }
 
-    public Usuario(String contraseña, String nombre_usuario, String correo_Electronico, Roles rol) {
-        this.contraseña = contraseña;
+    public Usuario(String nombre_usuario, String contraseña,  String correo_Electronico, Roles rol) {
+
         this.nombre_usuario = nombre_usuario;
+        this.contraseña = contraseña;
         this.correo_Electronico = correo_Electronico;
         this.rol = rol;
     }
-
     public long getId() {return id;}
     public void setId(long id) {this.id = id;}
-    public String getContraseña() {return contraseña;}
-    public void setContraseña(String contraseña) {this.contraseña = contraseña;}
     public String getNombre_usuario() {return nombre_usuario;}
     public void setNombre_usuario(String nombre_usuario) {this.nombre_usuario = nombre_usuario;}
+    public String getContraseña() {return contraseña;}
+    public void setContraseña(String contraseña) {this.contraseña = contraseña;}
     public String getCorreo_Electronico() {return correo_Electronico;}
     public void setCorreo_Electronico(String correo_Electronico) {this.correo_Electronico = correo_Electronico;}
     public Roles getRol() {return rol;}
